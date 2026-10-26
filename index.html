@@ -1,7 +1,108 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f8f9fc">
-<title>Syllabusly — Your learning, in progress</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css"></head>
-<body><div class="app-shell"><aside class="sidebar"><a class="brand" href="#"><span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 8.5C9 7 12.5 8 16 10v16c-3.5-2-7-3-11-1.5v-16Zm22 0C23 7 19.5 8 16 10v16c3.5-2 7-3 11-1.5v-16Z"/><path d="M16 10v16"/></svg></span><span>Syllabusly<span class="brand-dot">.</span></span></a><div class="side-label">WORKSPACE</div><button class="nav-item active" id="allCourses"><span class="nav-icon">▦</span> All courses <span class="nav-count" id="courseCount">6</span></button><div class="side-label course-label">YOUR COURSES <button id="addCourse" class="plus" title="Add course">+</button></div><nav id="courseNav" class="course-nav"></nav><div class="sidebar-bottom"><div class="tip-card"><span class="tip-spark">✳</span><strong>Small steps add up.</strong><p>Keep showing up and your progress will follow.</p></div><div class="profile"><div class="avatar">S</div><div><strong>Student workspace</strong><span>Personal study space</span></div><span class="profile-more">···</span></div></div></aside>
-<main class="main"><header class="topbar"><div class="crumb"><span>Workspace</span><b>/</b><strong id="crumbName">All courses</strong></div><div class="top-actions"><label class="searchbox"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 4 4"/></svg><input id="search" type="search" placeholder="Search topics or courses..." aria-label="Search topics or courses"><kbd>⌘ K</kbd></label><button class="icon-btn" title="Search" id="mobileSearch"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 4 4"/></svg></button><button id="themeToggle" class="icon-btn theme-btn" title="Toggle dark mode">◐</button></div></header><section class="content"><div class="welcome-row"><div><div class="eyebrow"><span class="eyebrow-line"></span> YOUR PERSONAL STUDY HUB</div><h1 id="pageTitle">Make progress <span>visible.</span></h1><p class="welcome-copy" id="pageCopy">A little progress each day adds up to big results.</p></div><button class="primary-btn" id="addCourseMain"><span>＋</span> Add a course</button></div><section class="overview-grid" id="overviewStats"></section><div class="section-heading"><div><h2 id="listTitle">Your courses</h2><p id="listSubtitle">Pick up where you left off.</p></div><div class="sort-wrap"><span class="sort-mark">☷</span><select id="sortSelect" aria-label="Sort courses"><option value="default">Recently active</option><option value="az">Name A–Z</option><option value="progress">Progress</option></select></div></div><div id="courseGrid" class="course-grid"></div><div id="emptyState" class="empty-state hidden"><div class="empty-icon">⌕</div><h3>No topics found</h3><p>Try another search or choose a different course.</p></div><footer>Made for steady progress <span>✳</span></footer></section></main></div><div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><button class="modal-close" id="closeModal" aria-label="Close">×</button><div class="modal-badge">＋</div><h2 id="modalTitle">Add a course</h2><p>Create a course and start building your syllabus.</p><form id="courseForm"><label>Course name<input required name="name" placeholder="e.g. Data Structures"></label><div class="form-row"><label>Course code<input name="code" placeholder="e.g. CSE201"></label><label>Credits<input name="credits" type="number" min="0" max="30" placeholder="3"></label></div><label>Accent color<select name="color"><option value="violet">Violet</option><option value="blue">Blue</option><option value="teal">Teal</option><option value="orange">Orange</option></select></label><button type="submit" class="primary-btn full-btn">Create course</button></form></div></div><div id="toast" class="toast" role="status"></div><script src="app.js"></script></body></html>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f8f9fc">
+    <title>Syllabusly — Your learning, in progress</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar"><a class="brand" href="#"><span class="brand-mark"><svg viewBox="0 0 32 32"
+                        aria-hidden="true">
+                        <path
+                            d="M5 8.5C9 7 12.5 8 16 10v16c-3.5-2-7-3-11-1.5v-16Zm22 0C23 7 19.5 8 16 10v16c3.5-2 7-3 11-1.5v-16Z" />
+                        <path d="M16 10v16" />
+                    </svg></span><span>Syllabusly<span class="brand-dot">.</span></span></a>
+            <div class="side-label">WORKSPACE</div><button class="nav-item active" id="allCourses"><span
+                    class="nav-icon">▦</span> All courses <span class="nav-count" id="courseCount">6</span></button>
+            <div class="side-label course-label">YOUR COURSES <button id="addCourse" class="plus"
+                    title="Add course">+</button></div>
+            <nav id="courseNav" class="course-nav"></nav>
+            <div class="sidebar-bottom">
+                <div class="tip-card"><span class="tip-spark">✳</span><strong>Small steps add up.</strong>
+                    <p>Keep showing up and your progress will follow.</p>
+                </div>
+                <div class="profile">
+                    <div class="avatar">S</div>
+                    <div><strong>Student workspace</strong><span>Personal study space</span></div><span
+                        class="profile-more">···</span>
+                </div>
+            </div>
+        </aside>
+        <main class="main">
+            <header class="topbar">
+                <div class="crumb"><span>Workspace</span><b>/</b><strong id="crumbName">All courses</strong></div>
+                <div class="top-actions"><label class="searchbox"><svg viewBox="0 0 24 24">
+                            <circle cx="10.8" cy="10.8" r="6.5" />
+                            <path d="m16 16 4 4" />
+                        </svg><input id="search" type="search" placeholder="Search topics or courses..."
+                            aria-label="Search topics or courses"><kbd>⌘ K</kbd></label><button class="icon-btn"
+                        title="Search" id="mobileSearch"><svg viewBox="0 0 24 24">
+                            <circle cx="10.8" cy="10.8" r="6.5" />
+                            <path d="m16 16 4 4" />
+                        </svg></button><button id="themeToggle" class="icon-btn theme-btn"
+                        title="Toggle dark mode">◐</button></div>
+            </header>
+            <section class="content">
+                <div class="welcome-row">
+                    <div>
+                        <div class="eyebrow"><span class="eyebrow-line"></span> YOUR PERSONAL STUDY HUB</div>
+                        <h1 id="pageTitle">Make progress <span>visible.</span></h1>
+                        <p class="welcome-copy" id="pageCopy">A little progress each day adds up to big results.</p>
+                    </div><button class="primary-btn" id="addCourseMain"><span>＋</span> Add a course</button>
+                </div>
+                <section class="overview-grid" id="overviewStats"></section>
+                <div class="section-heading">
+                    <div>
+                        <h2 id="listTitle">Your courses</h2>
+                        <p id="listSubtitle">Pick up where you left off.</p>
+                    </div>
+                    <div class="sort-wrap"><span class="sort-mark">☷</span><select id="sortSelect"
+                            aria-label="Sort courses">
+                            <option value="default">Recently active</option>
+                            <option value="az">Name A–Z</option>
+                            <option value="progress">Progress</option>
+                        </select></div>
+                </div>
+                <div id="courseGrid" class="course-grid"></div>
+                <div id="emptyState" class="empty-state hidden">
+                    <div class="empty-icon">⌕</div>
+                    <h3>No topics found</h3>
+                    <p>Try another search or choose a different course.</p>
+                </div>
+                <footer>Made for steady progress <span>✳</span></footer>
+            </section>
+        </main>
+    </div>
+    <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-card"><button class="modal-close" id="closeModal" aria-label="Close">×</button>
+            <div class="modal-badge">＋</div>
+            <h2 id="modalTitle">Add a course</h2>
+            <p>Create a course and start building your syllabus.</p>
+            <form id="courseForm"><label>Course name<input required name="name"
+                        placeholder="e.g. Data Structures"></label>
+                <div class="form-row"><label>Course code<input name="code"
+                            placeholder="e.g. CSE201"></label><label>Credits<input name="credits" type="number" min="0"
+                            max="30" placeholder="3"></label></div><label>Accent color<select name="color">
+                        <option value="violet">Violet</option>
+                        <option value="blue">Blue</option>
+                        <option value="teal">Teal</option>
+                        <option value="orange">Orange</option>
+                    </select></label><button type="submit" class="primary-btn full-btn">Create course</button>
+            </form>
+        </div>
+    </div>
+    <div id="toast" class="toast" role="status"></div>
+    <script src="app.js"></script>
+</body>
+
+</html>
